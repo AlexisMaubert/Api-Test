@@ -1,32 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, View, ImageBackground } from 'react-native';
-import Frase from './components/Frase';
-import bg from './img/bg.jpg';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { color } from 'react-native-reanimated';
+
+const GotScreen = require("./screens/GotScreen");
+const Home = require("./screens/Home");
+const Menu = createDrawerNavigator();
 
 export default function App() {
-
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source= {bg}
-        resizeMode='cover'
-        style={styles.image}>
-        <Frase />
-      </ImageBackground>
-      
-      <StatusBar style="auto" />
-    </View>
-  )
+    <NavigationContainer>
+      <Menu.Navigator
+
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerStyle:{
+          backgroundColor : '#060625',
+        },
+        drawerStyle: {
+          backgroundColor: '#060625',
+          width: 240
+        },
+        drawerLabelStyle: {
+          color : '#fff'
+        }}}>
+        <Menu.Screen name="Home" component={Home} />
+        <Menu.Screen name="Frase" component={GotScreen} />
+      </Menu.Navigator>
+    </NavigationContainer>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
+
